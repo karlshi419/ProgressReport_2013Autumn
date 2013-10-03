@@ -1,0 +1,71 @@
+\documentclass[a4paper, 11pt]{article}
+
+%MATH package
+\usepackage{amssymb}
+\usepackage{amsthm}
+%graph package
+\usepackage{graphicx}
+%Set FONT
+%\usepackage{fontspec}
+\topmargin -10mm
+\oddsidemargin 0mm
+\evensidemargin 0mm
+\textwidth 158mm
+\textheight 226mm
+\parskip 0mm
+
+%title
+\title{Progress Report}
+\author{Kan Shi}
+%date, if blank no date will be displayed
+\date{October 2013}
+
+%page number format
+\pagenumbering{arabic}
+
+%\setmainfont{Times New Roman}
+
+\begin{document}
+%Generate Title
+\maketitle
+\vspace{-10mm}
+
+\section{Design of Digit-parallel On-line Multiplier}
+
+%------------------------------------------------------------------------
+\section{Probabilistic Model of Overclocking Error in On-line Multiplier}
+%In a digit-parallel on-line multiplier, delay can be derived from many sources such as
+%For ease of discussion, we
+
+While the delay in a digit-parallel on-line multiplier might be derived from many sources such as the computation delay to generate outputs, the overall delay will eventually be determined by the longest propagation delay between stages with increasing operand word-lengths. Let the propagation delay between two adjacent stages in a $N$-digit olMult be dented by $\mu$, hence the delay of the longest chain which propagates from the MSD to the LSD is given by $d_w$ as shown in~(\ref{Eq:WorstCaseDelay_NaiveAnalysis}).
+\begin{eqnarray}\label{Eq:WorstCaseDelay_NaiveAnalysis}
+  d_w = (N+\delta-1)\cdot \mu
+\end{eqnarray}
+
+However, we note that the chain is annihilated at a certain stage if the propagation inputs of this stage change while the propagation outputs keep stable. This will shrink the value of $d_w$, and there are two possible cases specifically. As an example for the first case, assume at time $t~(t>\mu)$ the value of propagation inputs and outputs of a stage to be $Pin(t)$ and $Pout(t)$ respectively. After delay $\mu$, the input value changes to $Pin(t+\mu)$ and stabilizes, while the output of this stage remains $Pout(t)$. The current chain still propagates to the next stage of which the input varies from $Pout(t-\mu)$ to $Pout(t)$. Under this situation, the chain delay is reduced by $\mu$ because of the annihilation. For the second case, the current chain will be completely annihilated and a new chain will be generated at a given stage if $Pout(t)=Pout(0)$ for $t=\mu,~2\mu,~\cdots$. Therefore the overall path delay is given by~(\ref{Eq:OverallPathDelay_MultiPaths}) where $d_i$ denotes the delay of the $i^{th}$ propagation chain.
+\begin{eqnarray}\label{Eq:OverallPathDelay_MultiPaths}
+  d_w'=max(d_1,~d_2,~\cdots)
+\end{eqnarray}
+
+In the following of this section, detailed analysis for both cases will be described and the worst-case delay of the olMult will be discussed.
+\subsection{Worst-case Analysis in On-line Multiplier}
+From eq.xxx(algorithm for olMult), several observations can be made. 
+\newtheorem{Ob1}{Observation}
+\begin{Ob1}
+    The integer bits of $W[j]$ and $P[j+1]$ are either $00$ or $11$
+\end{Ob1}
+
+This observation can be justified by contradiction. All the combinations of the most significant 3 bits of $\widehat{W[j]}$ and the corresponding $z_j$,~$P[j+1]$ and $2P[j+1]$ are listed in Table.xxx
+
+
+
+
+\subsection{Probability of Overclocking Error in On-line Multiplier}
+
+\subsection{Magnitude of Overclocking Error in On-line Multiplier}
+
+%------------------------------------------------------------------------
+\section{Probabilistic Model of Truncation Error in On-line Operators}
+
+
+\end{document} 
