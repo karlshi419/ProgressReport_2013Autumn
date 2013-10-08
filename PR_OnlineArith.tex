@@ -39,7 +39,8 @@
 \section{Design of Digit-parallel On-line Multiplier}
 \begin{eqnarray}\label{Eq:OnlineMult}
   \left\{\begin{matrix}
-    W[j] & = & 2P[j]+2^{-3}(x_{j+4}\cdot Y[j+1]+y_{j+4}\cdot X[j])\\
+    H[j] & = & 2^{-3}(x_{j+4}\cdot Y[j+1]+y_{j+4}\cdot X[j])\\
+    W[j] & = & 2P[j]+H[j]\\
     z_j  & = & SEL(\widehat{W[j]})\\
     P[j+1] & = & W[j]-z_j
   \end{matrix}\right.
@@ -72,7 +73,12 @@ From (\ref{Eq:OnlineMult}) several observations can be made under the assumption
     The two integer bits of $W[j]$ and $2P[j+1]$ are either $00$ or $11$.
 \end{Ob}
 
-This observation can be justified by contradiction. All the combinations of $\widehat{W[j]}$ and the corresponding $z_j$, the most significant 3 bits of $P[j+1]$ and the 2 integer bits of $2P[j+1]$ are listed in Table~\ref{Tab:Observation1}. For $j=-3$, we have $W[-3]=2^{-3}(y_1X[-3])$ according to (\ref{Eq:OnlineMult}). Hence $\widehat{W[-3]}$ is either $11.1$ or $00.0$, with the corresponding $2P[-2]$ being $00$ or $11$ which is the propagation input for the next stage. For $j>-3$, the 3 MSBs of $2^{-3}(x_{j+4}Y[j+1]+y_{j+4}X[j])$ in (eq.xxx) is either $00.0$ or $11.1$ due to the shift of binary point. Also as seen in Table.xxx, if the two integer bits of $\widehat{W[j]}$ are identical, the integer bits of $2P[j+1]$ will be the same. Therefore the propagation of $2P[j+1]$ will not generate diverse bits in the integer part of $W[j]$.
+This observation can be justified by contradiction. All the combinations of $\widehat{W[j]}$ and the corresponding $z_j$, the most significant 3 bits of $P[j+1]$ and the 2 integer bits of $2P[j+1]$ are listed in Table~\ref{Tab:Observation1}. For $j=-3$, we have (\ref{Eq:olMult_Stage0}) according to (\ref{Eq:OnlineMult}). 
+\begin{eqnarray}\label{Eq:olMult_Stage0}
+    W[-3]=2^{-3}(y_1\cdot X[-3])
+\end{eqnarray}
+
+Hence $\widehat{W[-3]}$ is either $11.1$ or $00.0$, with the corresponding $2P[-2]$ being $00$ or $11$ which is the propagation input for the next stage. For $j>-3$, the 3 MSBs of $H[j]$ in (\ref{Eq:OnlineMult}) is either $00.0$ or $11.1$ due to the shift of binary point. Also as seen in Table.xxx, if the two integer bits of $\widehat{W[j]}$ are identical, the integer bits of $2P[j+1]$ will be the same. Therefore the propagation of $2P[j+1]$ will not generate diverse bits in the integer part of $W[j]$.
 %
 \begin{table}[htbp]
 \caption{All the combinations of $\widehat{W[j]}$ and the corresponding $z_j$, $P[j+1]$ and $2P[j+1]$.}
@@ -115,7 +121,10 @@ According to Observation~\ref{Ob:Ob1}, there are only four possible cases for th
 
 % only result in $11.1$ or $00.0$ for the most significant 3 bits of $W[j]$. In addition for $2P[j+1]$, there are only two cases ($01$ and $10$) violate Observation~\ref{Tab:Observation1}. The corresponding value of $\widehat{W[j]}$ are $01.1$ and $10.0$ respectively. 
 
-As stated in Section~\ref{subSec:AnnihilationOfChain}, the annihilation of propagation chain would leads to a reduction of the propagation delay. It is worthwhile exploring the conditions of occurence of Observation~\ref{Ob:Ob2}. For instance, if $x_{-3}\neq0$ and $y_{-3}\neq0$, no more than 6 MSBs of $P[-2]$ will change with respect to the initial value at $t=0$, according to (\ref{Eq:OnlineMult}). Hence maximally 5 MSBs of $2P[-2]$ will change. Besides, at $t=0$ the computation of $2^{-3}(x_{j+4}\cdot Y[j+1]+y_{j+4}\cdot X[j])$ in (\ref{Eq:OnlineMult}) is finished, as assumed previously in the timing model. For $t>0$, the variation of $2P[j]$ propagates from $Stage0$ to $Stage1\cdots Stage4$ with the number of altered MSBs being $5$ to $2$, from $t=\mu$ to $t=4\mu$ respectively. Hence for $Stage4$, we have $Pout(4\mu)=Pout(3\mu)$ according to Observation~\ref{Ob:Ob2}. This stands for an annihilation, and the propagation from $Stage0$ to $Stage5$ is therefore $4\mu$. 
+As stated in Section~\ref{subSec:AnnihilationOfChain}, the annihilation of propagation chain would leads to a reduction of the propagation delay. It is worthwhile exploring the conditions of occurence of Observation~\ref{Ob:Ob2}. For instance in a 3-digit olMult, there are 6 stages in total. If $x_{-3}\neq0$ and $y_{-3}\neq0$, no more than 6 MSBs of $P[-2]$ will change with respect to the initial value at $t=0$. This is because in (\ref{Eq:olMult_Stage0}) $y_1\cdot X[-3]$ contains only 1 fractional bit and 2 integer bits. Hence maximally 5 MSBs of $2P[-2]$ will be updated. It is worth noting that this is irrelevant to the word-length of the olMult. Besides, at $t=0$ the computation of $H[j]$ in (\ref{Eq:OnlineMult}) is finished, as assumed previously in the timing model. For $t>0$, the variation of $2P[j]$ propagates from $Stage0$ to $Stage1\cdots Stage4$ with the number of altered MSBs being $5$ to $2$, from $t=\mu$ to $t=4\mu$ respectively. Also note that this changing procedure is irrelevant to the value of $x_{j+4}$, $y_{j+4}$, $X[j]$ and $Y[j+1]$ for $Stage1\cdots Stage4$. Hence for $Stage4$, we have $Pout(4\mu)=Pout(3\mu)$ in accordence with Observation~\ref{Ob:Ob2}. This stands for an annihilation of the chain, and therefore the propagation delay from $Stage0$ to $Stage5$ is $4\mu$. The above process is illustrated in Fig.xxx. 
+
+This changing process happens in a 3-digit olMult when $P[-2]\neq0$, i.e. it is only determined by the inputs of the first stage regardless of the other stages. Actually in other situations, the overall propagation delay will not be increased. For example if $P[-2]=0$ while $P[-1]\neq0$, similarly we have maximally 7 MSBs of $2P[-1]$ will change at $t=0$. This will propagates to $Stage5$, the propagation inputs of which change 2 MSBs, and finally yields a delay of $4\mu$. This value shrinks to $3\mu$ if $P[-2]=P[-1]=0$ while $P[0]\neq0$ based on a similar analysis.
+
 
 \subsection{Probability of Overclocking Error in On-line Multiplier}
 
