@@ -1,5 +1,7 @@
 # Fdb version 3
-["pdflatex"] 1381190699 "PR_OnlineArith.tex" "PR_OnlineArith.pdf" "PR_OnlineArith" 1381190700
+["pdflatex"] 1381315324 "PR_OnlineArith.tex" "PR_OnlineArith.pdf" "PR_OnlineArith" 1381315324
+  "./Figures/OlMult_Stage.pdf" 1381236039 161721 85d890837bb72fb851fb879426bb7445 ""
+  "./Figures/TimingWave.pdf" 1381237549 87264 91b2e2531e831b6e5a62990fb63c125d ""
   "/usr/local/texlive/2012/texmf-dist/tex/context/base/supp-pdf.mkii" 1337017135 71627 94eb9990bed73c364d7f53f960cc8c5b ""
   "/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/etexcmds.sty" 1335995445 7612 c47308d923ec19888707b0f1792b326a ""
   "/usr/local/texlive/2012/texmf-dist/tex/generic/oberdiek/ifluatex.sty" 1303254447 7324 11d14f318d865f420e692d4e6c9c18c3 ""
@@ -32,8 +34,8 @@
   "/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/grfext.sty" 1335995445 7075 bd0c34fbf1ae8fd1debd2a554e41b2d5 ""
   "/usr/local/texlive/2012/texmf-dist/tex/latex/oberdiek/kvoptions.sty" 1335995445 22417 c74ff4af6a1aa2b65d1924020edbbe11 ""
   "/usr/local/texlive/2012/texmf-dist/tex/latex/pdftex-def/pdftex.def" 1306616590 55368 3c8a0d99822330f2dfabc0dfb09ce897 ""
-  "PR_OnlineArith.aux" 1381190700 1499 c16813c8c0605a3c13149b17ed650167 ""
-  "PR_OnlineArith.tex" 1381190699 8667 42c95aa998d3e4b84cc065e20b58ec08 ""
+  "PR_OnlineArith.aux" 1381315324 2106 cf522b132819eccf42e52da501ed8529 ""
+  "PR_OnlineArith.tex" 1381315324 13957 d3090e4596c8a868ea61b5d211f3afcc ""
   (generated)
   "PR_OnlineArith.log"
   "PR_OnlineArith.aux"
