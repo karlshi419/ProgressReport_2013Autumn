@@ -84,6 +84,8 @@ Typically the online multiplication is performed in a recursive manner. The algo
 
 In addition, $sel(\widehat{W}[j])$ is the function to select the product digit at iteration $j$. The selection is accomplished by using a discretization algorithm [xxx] based on the knowledge of $\widehat{W}[j]$, which is an estimate of the residue $W[j]$. In the following of this article, $\widehat{W}[j]$ is obtained by truncating $W[j]$ to its first few MSDs.
 
+Note that in this algorithm, the first non-zero product is obtained when $j=0$, while the MSD of the $N$-digit input operand is applied when $j=-\delta$. In order to acquire the most significant $N$-digit of product, $x_j$ and $y_j$ are assigned to be $0$ when $j=N-\delta,\cdots,N-1$. Similarly if $2N$-digit is required for product, $x_j$ and $y_j$ should be assigned as $0$ when $j=N-\delta,\cdots,2N-1$. In this article, we will focus on the situation where the multiplication stops when the first $N$-digit MSDs of products are obtained. Because normally the remaining $N$-digit LSDs will be truncated in real computations such as $a\times b+c$ where $a,~b,~c$ are $N$-digit numbers.
+
 %\subsubsection{Inputs and Outputs}
 
 %\subsubsection{Recurrence Equations}
@@ -102,7 +104,7 @@ Currently we consider the online multiplication algorithm in radix-2 as it is th
  \hline
  $r$ & Digit Set & $\widehat{W}[j]$  & $\delta$ \\ 
  \hline
- $2$ & $\{-1,0,1\}$ & $w_{-2}w_{-1}.w_{0}$ & $3$\\
+ $2$ & $\{\bar{1},0,1\}$ & $w_{-2}w_{-1}.w_{0}$ & $3$\\
  \hline
  \hline 
 \end{tabular}
@@ -113,21 +115,63 @@ Hence (\ref{Eq:OnlineMult_General}) can be modified as given by (\ref{Eq:OnlineM
 %
 \begin{eqnarray}\label{Eq:OnlineMult}
   \begin{matrix}
-    H[j] & = & 2^{-3}(x_{j+4}\cdot Y[j+1]+y_{j+4}\cdot X[j])\\
-    W[j] & = & 2P[j]+H[j]\\
+    H[j] & = & 2^{-3}(x_{j+3}\cdot Y[j+1]+y_{j+3}\cdot X[j])\\
+    W[j] & = & P[j]+H[j]\\
     z_j  & = & sel(\widehat{W}[j])\\
-    P[j+1] & = & W[j]-z_j
+    P[j+1] & = & 2(W[j]-z_j)
   \end{matrix}
 \end{eqnarray}
 
 The selection function is given by (\ref{Eq:SelFunc_OM}) [xxx].
 \begin{eqnarray}\label{Eq:SelFunc_OM}
-  sel(\widehat{W[j]})=\begin{cases}
+  z_j=sel(\widehat{W}[j])=\begin{cases}
     1 & \text{ if } \widehat{W}[j] \geqslant \frac{1}{2} \\ 
     0 & \text{ if } -\frac{1}{2}\leqslant\widehat{W}[j]<\frac{1}{2} \\ 
-    -1 & \text{ if } \widehat{W}[j]<-\frac{1}{2}
+    \bar{1} & \text{ if } \widehat{W}[j]<-\frac{1}{2}
   \end{cases}
 \end{eqnarray}
+
+\subsection{Implementation of Radix-2 Online Multiplication Algorithm}
+
+The online multiplication algorithm can be implemented in either a digit-serial fashion or a digit-parallel fashion, of which the general structure is demonstrated in Fig.xxx(a) and Fig.xxx(b) respectively. In the digit-serial implementation, the input operands are given digit by digit. Correspondingly the product is generated one digit per cycle. Whereas in the digit-parallel architecture, $N$-digit operands are given simultaneously, and the $N$-digit MSDs of products can be sampled at the same time. In comparison to the digit-serial structure where a general architecture is required in order to process inputs for all $j$, digit-parallel structure offers the opportunities to optimize the logic of each stage with respect to the given inputs. For example when $j=N-\delta,\cdots,N-1$, we have $x_j=y_j=0$ as described earlier. In this case $H[j]=0$ and $W[j]=P[j]$ in (\ref{Eq:OnlineMult_General}) and (\ref{Eq:OnlineMult}), that is, the signed-digit by vector multiplication can be removed from this stages and hence the area is reduced. Therefore in the following of this section, we describe the details of implementation and optimization for the digit-parallel online multiplication.
+
+\subsubsection{Signed-digit by Vector Multiplication Module}
+As can be seen in (\ref{Eq:OnlineMult}), two signed-digit by vector multiplication (SDVM) modules are required to generate $H[j]$. Implementing SDVM for $r>2$ is difficult, since it is basically a normal multiplier and the computation time will depend on the precision of operands. This will introduce a large overhead of delay and area. However for $r=2$ the structure becomes straight forward, because $x_j$ and $y_j$ can only be $\pm1$ or $0$. As an example for $y_{j+3}\cdot X[j]$ we have (\ref{Eq:SDVM_OM}).
+\begin{eqnarray}\label{Eq:SDVM_OM}
+  y_{j+3}\cdot X[j]=\begin{cases}
+    X[j]          & \text{ if } y_{j+3}=1 \\ 
+    \overline{X}[j]+1  & \text{ if }y_{j+3}=\bar{1} \\ 
+    0             & \text{ otherwise }
+  \end{cases}
+\end{eqnarray}
+
+
+\subsubsection{Generation of Residue $W[j]$}
+We can see from (\ref{Eq:OnlineMult}) that addition is required to generate $W[j]$. Instead of using conventional adder, such as the ripple carry adder, the carry-save adder is employed so that the addition time is independent of the precision. Correspondingly $W[j]$ and $P[j]$ are represented in the carry-save form. Hence we have (\ref{Eq:ResidueW_OM}) which can be implemented using a carry-save adder with 4 inputs and 2 outputs as shown in Fig.xxx.
+\begin{eqnarray}\label{Eq:ResidueW_OM}
+  (WC[j],~WS[j]) = PC[j] + PS[j] + 2^{-3}x_{j+3}Y[j+1] + 2^{-3}y_{j+3}X[j]
+\end{eqnarray}
+
+The word-length of the carry-save adder is determined by the word-length of inputs. For a $N$-digit online multiplier, a $(N+5)$-bit carry-save adder is required for (\ref{Eq:ResidueW_OM}) because of the $3$-bit shift and $2$-bit integer is needed for $\widehat{W}[j]$.
+
+\subsubsection{Selection Function}
+The selection function can be directly implemented using combinational logic based on (\ref{Eq:SelFunc_OM}), where $z_j$ is represented in the signed-digit form coding as $(z_+,~z_-)$. The expression for $z_+$ and $z_-$ are given by (\ref{Eq:ExpressionZ}) where $w_{-2}w_{-1}.w_0$ is used to represent $\widehat{W}[j]$ as shown in Table~\ref{Tab:Radix2_OM_Parameter}.
+%
+\begin{eqnarray}\label{Eq:ExpressionZ}
+  z_+=\overline{w}_{-2}(w_{-1}+w_0),~~z_-=w_{-2}(\overline{w}_{-1}+\overline{w}_0)
+\end{eqnarray}
+
+\subsubsection{Generation of Propagation Output $P[j+1]$}
+According to (\ref{Eq:OnlineMult}) the fractional bits of $P[j+1]$ are identical to $2W[j]$ as $z_j$ is an integer number. Moreover $w_{-2}$ will be discarded after shift operation to keep the word-length of $P[j+1]$ to be $N+5$ bits. Therefore only the first integer bit of $P[j+1]$ should be calculated as given by (\ref{Eq:ExpressionP}), while the remaining bits are directly wired to the corresponding bits in $2W[j]$. Note that $\oplus$ in (\ref{Eq:ExpressionP}) denotes the exclusive OR operation.
+%
+\begin{eqnarray}\label{Eq:ExpressionP}
+  p_{-2} = 2(w_{-1} ~\oplus~ (z_+ ~\oplus~ z_-))
+  %p_{-2} = 2(w_{-1} ~XOR~ (z_+ ~XOR~ z_-))
+\end{eqnarray}
+
+\subsubsection{Optimization for Area Reduction}
+We have discussed earlier that the SDVM module is not required in the last $\delta$ stages. Besides in the first stage, we have $W[j] = 2^{-3}x_{j+3}Y[j+1]$ meaning that only one SDVM is needed. In addition the carry-select adder is not necessary for the first stage since $P[-\delta]=0$. For the first $\delta$ stages, we also have $z_j=0$ and therefore $P[j+1]=2W[j]$. This means the selection function can be removed for those stages. Moreover word-length optimization can be performed for $W[j]$ and $P[j]$ in all stages instead of keeping $N+5$ bits. The overall area saving after optimization can be $xxx\%$
+
 
 %--------------------------------------------------------------------------------------------------
 %--------------------------------------------------------------------------------------------------

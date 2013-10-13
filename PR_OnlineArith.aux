@@ -6,32 +6,42 @@
 \newlabel{Eq:OnlineMult_General}{{1}{1}}
 \newlabel{Algorithm:OnlineMult}{{1}{1}}
 \newlabel{Eq:Operands_OM}{{2}{1}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Radix-2 Online Multiplier}{1}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.2}Radix-2 Online Multiplier}{2}}
 \@writefile{lot}{\contentsline {table}{\numberline {1}{\ignorespaces Design Choice for Radix-2 Online Multiplication.}}{2}}
 \newlabel{Tab:Radix2_OM_Parameter}{{1}{2}}
 \newlabel{Eq:OnlineMult}{{3}{2}}
 \newlabel{Eq:SelFunc_OM}{{4}{2}}
-\@writefile{toc}{\contentsline {section}{\numberline {3}Probabilistic Model of Overclocking Error in Online Multiplier}{2}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Annihilation of the Propagation Chain}{2}}
-\newlabel{subSec:AnnihilationOfChain}{{3.1}{2}}
-\newlabel{Eq:WorstCaseDelay_NaiveAnalysis}{{5}{2}}
-\newlabel{Eq:OverallPathDelay_MultiPaths}{{6}{2}}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Timing wave.}}{3}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Worst-case Analysis in Online Multiplier}{3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Two Observations}{3}}
-\newlabel{Ob:Ob1}{{1}{3}}
-\newlabel{Eq:olMult_Stage0}{{7}{3}}
-\newlabel{Ob:Ob2}{{2}{3}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Annihilation of the Propagation Chain in An olMult }{3}}
-\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces All the combinations of $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle W[j]$}\mathaccent "0362{W[j]}$ and the corresponding $z_j$, $P[j+1]$ and $2P[j+1]$.}}{4}}
-\newlabel{Tab:Observation1}{{2}{4}}
-\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Ob2.}}{4}}
-\newlabel{Tab:Observation2}{{3}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Propagation chain in 3-digit olMult}}{4}}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces State transition graph in a 5-digit olMult when $2P_{[-2]}(0)\not =0$. (a) One possible transition path from $Stage1$ to $Stage4$ with transition probabilities labelled on the edges. (b) All possible transition paths.}}{5}}
-\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}State Transition Graph in An olMult}{5}}
-\newlabel{Eq:TransitionProb_OnePath}{{8}{5}}
-\newlabel{Eq:Delay_TransitionPath}{{9}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Probability of Overclocking Error in Online Multiplier}{6}}
-\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Magnitude of Overclocking Error in Online Multiplier}{6}}
-\@writefile{toc}{\contentsline {section}{\numberline {4}Probabilistic Model of Truncation Error in Online Operators}{6}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.3}Implementation of Radix-2 Online Multiplication Algorithm}{2}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.1}Signed-digit by Vector Multiplication Module}{2}}
+\newlabel{Eq:SDVM_OM}{{5}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.2}Generation of Residue $W[j]$}{3}}
+\newlabel{Eq:ResidueW_OM}{{6}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.3}Selection Function}{3}}
+\newlabel{Eq:ExpressionZ}{{7}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.4}Generation of Propagation Output $P[j+1]$}{3}}
+\newlabel{Eq:ExpressionP}{{8}{3}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {2.3.5}Optimization for Area Reduction}{3}}
+\@writefile{toc}{\contentsline {section}{\numberline {3}Probabilistic Model of Overclocking Error in Online Multiplier}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.1}Annihilation of the Propagation Chain}{4}}
+\newlabel{subSec:AnnihilationOfChain}{{3.1}{4}}
+\newlabel{Eq:WorstCaseDelay_NaiveAnalysis}{{9}{4}}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Timing wave.}}{4}}
+\newlabel{Eq:OverallPathDelay_MultiPaths}{{10}{4}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.2}Worst-case Analysis in Online Multiplier}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.1}Two Observations}{5}}
+\newlabel{Ob:Ob1}{{1}{5}}
+\newlabel{Eq:olMult_Stage0}{{11}{5}}
+\@writefile{lot}{\contentsline {table}{\numberline {2}{\ignorespaces All the combinations of $\setbox \z@ \hbox {\frozen@everymath \@emptytoks \mathsurround \z@ $\textstyle W[j]$}\mathaccent "0362{W[j]}$ and the corresponding $z_j$, $P[j+1]$ and $2P[j+1]$.}}{5}}
+\newlabel{Tab:Observation1}{{2}{5}}
+\newlabel{Ob:Ob2}{{2}{5}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.2}Annihilation of the Propagation Chain in An olMult }{5}}
+\@writefile{lot}{\contentsline {table}{\numberline {3}{\ignorespaces Ob2.}}{6}}
+\newlabel{Tab:Observation2}{{3}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces Propagation chain in 3-digit olMult}}{6}}
+\@writefile{toc}{\contentsline {subsubsection}{\numberline {3.2.3}State Transition Graph in An olMult}{6}}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces State transition graph in a 5-digit olMult when $2P_{[-2]}(0)\not =0$. (a) One possible transition path from $Stage1$ to $Stage4$ with transition probabilities labelled on the edges. (b) All possible transition paths.}}{7}}
+\newlabel{Eq:TransitionProb_OnePath}{{12}{7}}
+\newlabel{Eq:Delay_TransitionPath}{{13}{7}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.3}Probability of Overclocking Error in Online Multiplier}{8}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {3.4}Magnitude of Overclocking Error in Online Multiplier}{8}}
+\@writefile{toc}{\contentsline {section}{\numberline {4}Probabilistic Model of Truncation Error in Online Operators}{8}}
