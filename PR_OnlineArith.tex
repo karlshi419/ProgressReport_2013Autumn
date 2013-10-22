@@ -170,7 +170,9 @@ According to (\ref{Eq:OnlineMult}) the fractional bits of $P[j+1]$ are identical
 \end{eqnarray}
 
 \subsubsection{Optimization for Area Reduction}
-We have discussed earlier that the SDVM module is not required in the last $\delta$ stages. Besides in the first stage, we have $W[j] = 2^{-3}x_{j+3}Y[j+1]$ meaning that only one SDVM is needed. In addition the carry-select adder is not necessary for the first stage since $P[-\delta]=0$. For the first $\delta$ stages, we also have $z_j=0$ and therefore $P[j+1]=2W[j]$. This means the selection function can be removed for those stages. Moreover word-length optimization can be performed for $W[j]$ and $P[j]$ in all stages instead of keeping $N+5$ bits. The overall area saving after optimization can be $xxx\%$
+We have discussed earlier that the SDVM module is not required in the last $\delta$ stages. Besides in the first stage, we have $W[j] = 2^{-3}x_{j+3}Y[j+1]$ meaning that only one SDVM is needed. In addition the carry-select adder is not necessary for the first stage since $P[-\delta]=0$. For the first $\delta$ stages, we also have $z_j=0$ and therefore $P[j+1]=2W[j]$. This means the selection function can be removed for those stages. Moreover word-length optimization can be performed for $W[j]$ and $P[j]$ in all stages instead of keeping $N+5$ bits. The overall area saving after optimization can be $xxx\%$.
+
+
 
 
 %--------------------------------------------------------------------------------------------------
@@ -285,10 +287,10 @@ For an olMult with a greater word-length, the aforementioned process is still va
 \end{split}
 \end{eqnarray}
 
-\begin{figure}[tbp]
+\begin{figure}[tbp]\label{Fig:StateTransGraph}
   \centering
   \includegraphics[width=0.7\textwidth]{./Figures/OlMult_TimingGraph.pdf}
-  \caption{State transition graph in a 5-digit olMult when $2P_{[-2]}(0)\neq0$. (a) One possible transition path from $Stage1$ to $Stage4$ with transition probabilities labelled on the edges. (b) All possible transition paths.}
+  \caption{State transition graph in a 5-digit olMult when $2P_{[-2]}(0)\neq0$. (a) One possible transition path from $Stage1$ to $Stage4$ with transition probabilities labelled on the edges. (b) All possible transition paths starting from $S_1$.}
 \end{figure}
 
 The delay of this transition path can also be determined by counting the number of states $S_{m2}$. First, there is no annihilation prior to $S_{12}$. Second, $S_{42}$ is excluded because it is not necessary to wait for the propagation output of this stage to generate before sampling $z_4$. Hence there are totally 2 annihilation states $S_{12}$ and $S_{32}$ in this path. According to (\ref{Eq:WorstCaseDelay_NaiveAnalysis}) the worst case delay without any annihilation is $d_w=7\mu$. Delay of a specific transition path is given by (\ref{Eq:Delay_TransitionPath}). Hence the delay of this path is $5\mu$.
@@ -297,19 +299,18 @@ The delay of this transition path can also be determined by counting the number 
   d = d_w - \mu\cdot AnnihilationNo.  
 \end{eqnarray}
 
-Additionally as discussed earlier, there might be other possible states when annihilation happens. The complete transition graph of a 5-digit olMult is shown in Fig.xxx.
+Additionally as discussed earlier, there might be other possible states when annihilation happens. The complete transition graph of a 5-digit olMult is shown in Figure~\ref{Fig:StateTransGraph}.
 
+(extra description about why Fig.xxx looks like this)
 
- 
+\subsubsection{Conclusion}
+To summarize in a 5-digit olMult, the worst case delay is $5\mu$, instead of $7\mu$ as predicted in (\ref{Eq:WorstCaseDelay_NaiveAnalysis}). This example can be generalized to an olMult with any word-length based on the similar analysis. Figure xxx illustrates the critical path delay with respect to given word-lengths under two cases: one is predicted from (\ref{Eq:WorstCaseDelay_NaiveAnalysis}), while the other is obtained through the worst case analysis as described above. Between the two lines we can always observe a gap, which increases with the growth of the operand word-length. This finding indicates that instead of operating at a frequency reported by the timing analysis tool, we can safely increase the operating frequency to a large extend (e.g.~$38.9\%$ speedup for a 16-digit olMult) without timing violations, because in an olMult there is no chain propagating from the first stage to the final stage. Note that Figure.xxx is observed based on the aforementioned simple timing models. The experimental results based on real timing information on an FPGA will be given in Section.xxx.
+
+In the remaining of this section, we investigate the situation where the operating frequency is further increased such that timing violation happens. Probabilistic models of both magnitude and probability of the overclocking error will be detailed.
+
+% figure goes here
+
  %In the previous example where $P[-2]\neq0$, there is no new chain generated. Instead, the chain propagates to $S_2$, because $2P_{[-1]}(t)\cdots 2P_{[2]}(t)$ will prevent $2P_{[3]}(t)$ maintaining its initial value before $2P_{[-2]}(0)$ propagates down to $S_2$. In this case, the propagation input of $S_2$ changes from $2P_{[2]}(3\mu)$ to $2P_{[2]}(4\mu)$ and stabilizes, as illustrated in Fig.xxx(previous figure).
-
-%the temporal results of $S_{1}\cdots S_{-2}$, i.e. $P[2]\cdots P[-1]$, will prevent $P[3]$ maintaining the initial value before $2P[-2]$ propagates down to $S_2$. 
-
-%, with the maximum number of changed MSBs being $3$. Similarly, if $3$ MSBs are changing from $2P_{[2]}(3\mu)$ to $2P_{[2]}(4\mu)$, there will be $2$ MSBs that
-%
-%However the number of bits that change in MSBs would be different.
-%
-%As an example for $S_5$, there are maximally
 
 
 \subsection{Probability of Overclocking Error in Online Multiplier}

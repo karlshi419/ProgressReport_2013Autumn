@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  13 OCT 2013 15:15
+This is pdfTeX, Version 3.1415926-2.4-1.40.13 (TeX Live 2012) (format=pdflatex 2012.6.30)  21 OCT 2013 20:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -289,34 +289,34 @@ File: umsb.fd 2009/06/22 v3.00 AMS symbols B
 File: ./Figures/TimingWave.pdf Graphic file (type pdf)
 
 <use ./Figures/TimingWave.pdf>
-Package pdftex.def Info: ./Figures/TimingWave.pdf used on input line 193.
+Package pdftex.def Info: ./Figures/TimingWave.pdf used on input line 195.
 (pdftex.def)             Requested size: 224.77676pt x 191.75856pt.
  [4 <./Figures/TimingWave.pdf>] [5]
 <./Figures/OlMult_Stage.pdf, id=47, 605.26125pt x 72.27pt>
 File: ./Figures/OlMult_Stage.pdf Graphic file (type pdf)
 
 <use ./Figures/OlMult_Stage.pdf>
-Package pdftex.def Info: ./Figures/OlMult_Stage.pdf used on input line 270.
+Package pdftex.def Info: ./Figures/OlMult_Stage.pdf used on input line 272.
 (pdftex.def)             Requested size: 449.55354pt x 53.67854pt.
  [6 <./Figures/OlMult_Stage.pdf>]
 
 Package amsmath Warning: Cannot use `split' here;
-(amsmath)                trying to recover with `aligned' on input line 285.
+(amsmath)                trying to recover with `aligned' on input line 287.
 
 <./Figures/OlMult_TimingGraph.pdf, id=62, 520.94624pt x 354.57469pt>
 File: ./Figures/OlMult_TimingGraph.pdf Graphic file (type pdf)
 
 <use ./Figures/OlMult_TimingGraph.pdf>
 Package pdftex.def Info: ./Figures/OlMult_TimingGraph.pdf used on input line 29
-0.
+2.
 (pdftex.def)             Requested size: 314.6861pt x 214.18561pt.
  [7 <./Figures/OlMult_TimingGraph.pdf>]
 [8] (./PR_OnlineArith.aux) ) 
 Here is how much of TeX's memory you used:
- 2821 strings out of 493488
- 37412 string characters out of 3141326
- 99877 words of memory out of 3000000
- 6077 multiletter control sequences out of 15000+200000
+ 2822 strings out of 493488
+ 37433 string characters out of 3141326
+ 99889 words of memory out of 3000000
+ 6078 multiletter control sequences out of 15000+200000
  11698 words of font info for 44 fonts, out of 3000000 for 9000
  957 hyphenation exceptions out of 8191
  38i,16n,24p,1602b,412s stack positions out of 5000i,500n,10000p,200000b,50000s
@@ -335,7 +335,7 @@ cmsy8.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/cm/cm
 ti10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/symbol
 s/msam10.pfb></usr/local/texlive/2012/texmf-dist/fonts/type1/public/amsfonts/sy
 mbols/msbm10.pfb>
-Output written on PR_OnlineArith.pdf (8 pages, 575051 bytes).
+Output written on PR_OnlineArith.pdf (8 pages, 576558 bytes).
 PDF statistics:
  129 PDF objects out of 1000 (max. 8388607)
  95 compressed objects within 1 object stream
